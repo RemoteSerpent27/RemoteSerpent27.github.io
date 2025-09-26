@@ -7,17 +7,20 @@
     <style>
         .list-and-images {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 20px; /* Space between the list and images */
         }
+
         .list-and-images ul {
-            list-style-type: disc;
-            padding-left: 20px;
+            list-style-type: none; /* Remove default bullets */
+            padding: 0;
         }
+
         .list-and-images img {
-            width: 150px;
-            height: auto;
-            margin: 0 10px;
+            width: 100px; 
+            height: 100px;
+            border-radius: 50%; 
+            object-fit: cover; 
         }
     </style>
 </head>
@@ -44,8 +47,8 @@
             <li>Whale</li>
         </ul>
         <div>
-            <img src="camel.jpg" alt="Camel">
-            <img src="penguin.jpg" alt="Penguin">
+            <img src="https://www.awsfzoo.com/media/DSC02266-scaled.jpg" alt="Camel">
+            <img src="https://media.istockphoto.com/id/511366776/photo/gentoo-penguin-waddling-along-on-a-white-sand-beach.jpg?s=612x612&w=0&k=20&c=753zCUifyyfnE6tJCouL6xj52SPYctSnu0a2791ADEo=" alt="Penguin">
             <img src="whale.jpg" alt="Whale">
         </div>
     </div>
