@@ -22,12 +22,7 @@
 
         window.alert("Welcome to our store");
         var userName = window.prompt("Please enter your name");
-        function user(){
-            while(!userName){
-                userName = window.prompt("You didn't enter your name, please enter it");
-            }
-            document.write("Hello " + userName + ", Good " + timeNow + "<br>");
-        }
+        document.write("<h1>" + "Good " + timeNow + userName + "</h1>");
 
         var product = window.prompt("What product do you want to buy?");
         if(product === null || product === ""){
