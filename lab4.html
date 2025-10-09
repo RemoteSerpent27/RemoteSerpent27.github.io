@@ -10,6 +10,16 @@
     <script>
         var time = new Date();
         var timeNow = time.getHours();
+        if(timeNow >= 5 && timeNow < 12){
+            timeNow = "Morning ";
+        }else if(timeNow >= 13 && timeNow < 18){
+            timeNow = "Afternoon ";
+        }else if(timeNow >= 19 && timeNow < 24){
+            timeNow = "Evening ";
+        }else{
+            timeNow = "Night ";
+        }
+
         window.alert("Welcome to our store");
         var userName = window.prompt("Please enter your name");
         if(userName !== null && userName !== ""){
@@ -27,16 +37,7 @@
             if(quantity > 99 || quantity < 0 || quantity === null || quantity === ""){
                 window.prompt("You have entered a quantity thats too high or too low, please enter a valid quantity between 1-99");
             }
-        if(timeNow >= 5 && timeNow < 12){
-            timeNow = "Morning ";
-        }else if(timeNow >= 13 && timeNow < 18){
-            timeNow = "Afternoon ";
-        }else if(timeNow >= 19 && timeNow < 24){
-            timeNow = "Evening ";
-        }else{
-            timeNow = "Night ";
-        }
-
+       
        
     </script>
 </body>
