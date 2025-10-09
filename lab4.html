@@ -24,7 +24,7 @@
         }
 
         var quantity = window.prompt("How much of this product do you want");
-            if(quantity > 99 || quantity < 0 || quantity === null){
+            if(quantity > 99 || quantity < 0 || quantity === null || quantity === ""){
                 window.prompt("You have entered a quantity thats too high or too low, please enter a valid quantity between 1-99");
             }
         if(timeNow >= 5 && timeNow < 12){
