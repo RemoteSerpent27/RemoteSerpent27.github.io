@@ -8,6 +8,8 @@
 <body>
     
     <script>
+        var time = new Date();
+        var timeNow = time.getHours();
         window.alert("Welcome to our store");
         var userName = window.prompt("Please enter your name");
         if(userName === null && userName === ""){
@@ -24,6 +26,8 @@
                 window.prompt("You have entered a quantity thats too high or too low, please enter a valid quantity between 1-99");
             }
         
+
+        document.write("<h1> Good" + timeNow + userName + ", thank you for ordering </h1>");
     </script>
 </body>
 </html> 
