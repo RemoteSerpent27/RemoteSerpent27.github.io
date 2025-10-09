@@ -10,6 +10,8 @@
     <script>
         var time = new Date();
         var timeNow = time.getHours();
+        var delievery = new Date();
+       
         if(timeNow >= 5 && timeNow < 12){
             timeNow = "Morning ";
         }else if(timeNow >= 13 && timeNow < 18){
@@ -35,7 +37,7 @@
             }
             document.write("<h1>" + "Good " + timeNow + userName + " thank you for ordering! </h1>");
        
-            document.write("<h2> Your shipment is expected to come " + time.setDate(time.getDate() + 7) + " days from now </h2>");
+            document.write("<h2> Your shipment is expected to come " +  delievery.setDate(delievery.getDate() + 7) + "</h2>");
     </script>
 </body>
 </html> 
