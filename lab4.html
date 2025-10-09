@@ -17,12 +17,12 @@
         }
 
         var product = window.prompt("What product do you want to buy?");
-        if(product === null && product === ""){
+        if(product === null || product === ""){
             window.prompt("You didn't enter a product, please enter it");
         }
 
         var quantity = window.prompt("How much of this product do you want");
-            if(quantity > 99 && quantity < 0){
+            if(quantity > 99 || quantity < 0){
                 window.prompt("You have entered a quantity thats too high or too low, please enter a valid quantity between 1-99");
             }
         if(timeNow >= 5 && timeNow < 12){
