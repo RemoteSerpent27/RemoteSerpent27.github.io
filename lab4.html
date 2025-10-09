@@ -35,7 +35,7 @@
             }
             document.write("<h1>" + "Good " + timeNow + userName + " thank you for ordering! </h1>");
        
-            document.write("<h2> Your shipment is expected to come " + time(7) + " days from now </h2>");
+            document.write("<h2> Your shipment is expected to come " + time.setDate(time.getDate() + 7) + " days from now </h2>");
     </script>
 </body>
 </html> 
