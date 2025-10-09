@@ -13,9 +13,9 @@
         window.alert("Welcome to our store");
         var userName = window.prompt("Please enter your name");
         if(userName === null || userName === ""){
-            window.prompt("You didnt enter your name, please enter it");
-        }else{
             document.write("<h1> Good " + timeNow + userName + ", thank you for ordering </h1>");
+        }else{
+            window.prompt("You didnt enter your name, please enter it");
         }
 
         var product = window.prompt("What product do you want to buy?");
