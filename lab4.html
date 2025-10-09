@@ -22,7 +22,7 @@
 
         window.alert("Welcome to our store");
         var userName = window.prompt("Please enter your name");
-        document.write("<h1>" + "Good " + timeNow + userName + " thank you for ordering! </h1>");
+       
 
         var product = window.prompt("What product do you want to buy?");
         if(product === null || product === ""){
@@ -33,6 +33,7 @@
             if(quantity > 99 || quantity < 0 || quantity === null || quantity === ""){
                 window.prompt("You have entered a quantity thats too high or too low, please enter a valid quantity between 1-99");
             }
+            document.write("<h1>" + "Good " + timeNow + userName + " thank you for ordering! </h1>");
        
             document.write("<h2> Your shipment is expected to come " + time(7) + " days from now </h2>");
     </script>
