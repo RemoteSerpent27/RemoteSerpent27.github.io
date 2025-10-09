@@ -12,21 +12,21 @@
         if(userName !== null && userName !== ""){
             document.write("<h1>Hello " + userName + ", nice to meet you!</h1>");
         }else{
-            document.write("<h1>You didnt enter your name, please enter it </h1>");
+            window.prompt("<h1>You didnt enter your name, please enter it </h1>");
         }
 
         var product = window.prompt("What product do you want to buy?");
         if(product !== null && product !== ""){
             document.write("<h2> You have chose " + product + "as your product </h2>");
         }else{
-            document.write("<h2> You didn't enter a product, please enter it </h2>");
+            window.prompt("<h2> You didn't enter a product, please enter it </h2>");
         }
 
         var quantity = window.prompt("How much of this product do you want");
             if(quantity < 100 && quantity > 0){
                 document.write("<h3> You have chosen " + quantity + " of " + product + "</h3>");
             }else{
-                document.write("<h3> You have entered a quantity thats too high or too low, please enter a valid quantity </h3>");
+                window.prompt("<h3> You have entered a quantity thats too high or too low, please enter a valid quantity </h3>");
             }
         
     </script>
