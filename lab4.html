@@ -29,7 +29,7 @@
         var quantity = window.prompt("How much of this product do you want");
             if(quantity < 100 && quantity > 0){
                 document.write("<h3> You have chosen " + quantity + " of " + product + "</h3>");
-            }else if(quantity === null || quantity === ""){
+            }else if(quantity > 100 || quantity < 1){
                 window.prompt("You have entered a quantity thats too high or too low, please enter a valid quantity between 1-100");
             }else{
                 document.write("<h3> You have chosen " + quantity + " of " + product + "</h3>");
