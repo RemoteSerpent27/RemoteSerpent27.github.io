@@ -6,26 +6,21 @@
     <title>Lab4</title>
 </head>
 <body>
+    
     <script>
         window.alert("Welcome to our store");
         var userName = window.prompt("Please enter your name");
-        if(userName !== null && userName !== ""){
-            document.write("<h1>Hello " + userName + ", nice to meet you!</h1>");
-        }else{
+        if(userName === null && userName === ""){
             window.prompt("You didnt enter your name, please enter it");
         }
 
         var product = window.prompt("What product do you want to buy?");
-        if(product !== null && product !== ""){
-            document.write("<h2> You have chose " + product + " as your product </h2>");
-        }else{
+        if(product === null && product === ""){
             window.prompt("You didn't enter a product, please enter it");
         }
 
         var quantity = window.prompt("How much of this product do you want");
-            if(quantity < 99 && quantity > 0){
-                document.write("<h3> You have chosen " + quantity + " of " + product + "</h3>");
-            }else {
+            if(quantity > 99 && quantity < 0){
                 window.prompt("You have entered a quantity thats too high or too low, please enter a valid quantity between 1-99");
             }
         
