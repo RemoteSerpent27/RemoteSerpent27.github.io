@@ -23,15 +23,15 @@
     <form>
         <div class="mb-3">
             <label for="exampleInputFirstName" class="form-label" >First Name</label>
-            <input type="name" class="form-control" id="exampleInputFirstName" aria-describedby="emailHelp" required>
+            <input type="text" class="form-control" id="exampleInputFirstName" aria-describedby="emailHelp" required>
           </div>
           <div class="mb-3">
             <label for="exampleLastName" class="form-label" >Last Name</label>
-            <input type="name" class="form-control" id="exampleLastName" aria-describedby="emailHelp" required>     
+            <input type="text" class="form-control" id="exampleLastName" aria-describedby="emailHelp" required>     
           </div>
           <div class="mb-3">
             <label for="exampleDateOfBirth" class="form-label" >Date Of Birth</label>
-            <input type="dateOfBirth" class="form-control" id="exampleDateOfBirth" aria-describedby="emailHelp" required>
+            <input type="date" class="form-control" id="exampleDateOfBirth" aria-describedby="emailHelp" required>
           </div>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label" >Email address</label>
@@ -50,12 +50,15 @@
       </form>
 
       <script>
-        const fName = document.getElementById("exampleInputFirstName");
-        const lName = document.getElementById("exampleLastName");
-        const doB = document.getElementById("exampleDateOfBirth");
-        const email = document.getElementById("exampleInputEmail1");
-        const password = document.getElementById("exampleInputPassword1");
+        document.querySelector("form").addEventListener("submit", function(event)){
+            const fName = document.getElementById("exampleInputFirstName").value;
+        const lName = document.getElementById("exampleLastName").value;
+        const doB = document.getElementById("exampleDateOfBirth").value;
+        const email = document.getElementById("exampleInputEmail1").value;
+        const password = document.getElementById("exampleInputPassword1").value;
+        
 
+       
         const userData = {
             firstname: fName,
             lastname: lName,
@@ -63,9 +66,17 @@
             email: email,
             password: password
         };
+
+        
         function asterisks(password){
             return '*'.repeat(password.length);
         }
+        }
+        
+        
+       
+
+        
       </script>
 </body>
 </html>
