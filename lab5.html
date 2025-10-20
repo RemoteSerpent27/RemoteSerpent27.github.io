@@ -16,11 +16,17 @@
             margin: 0 auto;
             text-align: center;;
         }
+        .passwordMessage{
+          text-align: center;
+        }
+        .output{
+          text-align: center;
+        }
     </style>
 </head>
 <body>
     <h1>Registration Page For Comic Books</h1>
-    <form onsubmit="return validate(event)">
+    <form  id="userForm">
         <div class="mb-3">
             <label for="exampleInputFirstName" class="form-label" >First Name</label>
             <input type="text" class="form-control" id="exampleInputFirstName" aria-describedby="emailHelp" required>
@@ -41,7 +47,7 @@
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Password</label>
           <input type="password"  class="form-control" id="exampleInputPassword1" required>
-          
+          <p id="passwordError" style="color: red; display:none;">Password must contain ! or ?</p>
         </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
@@ -49,44 +55,52 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-
+      <div id="passwordMessage" class="passwordMessage" style="color: red;"></div>
+      <div id="output" class="output"></div>
       <script>
-       
-        const fName = document.getElementById("exampleInputFirstName");
+        document.addEventListener("DOMContentLoaded", () => {
+          const fName = document.getElementById("exampleInputFirstName");
         const lName = document.getElementById("exampleLastName");
         const doB = document.getElementById("exampleDateOfBirth");
         const email = document.getElementById("exampleInputEmail1");
         const password = document.getElementById("exampleInputPassword1");
-        
-        let first = true
-       
-        const userData = {
-            firstname: fName,
-            lastname: lName,
-            dateofbirth: doB,
-            email: email,
-            password: password
-        };
+        const form = document.getElementById("userForm");
+        const display = document.getElementById("output");
+        const passwordMessage = document.getElementById("passwordMessage");
 
-        function validate(event){
-           if(first){
-            event.preventDefault();
-            alert("Password must have a ! or ?");
-            first = false;
-           } else{
-            if(!password.includes("?") && !password.includes("!")){
-                event.preventDefault();
-                alert("Password must have a ! or ?");
-            }else{
-               return true;
-            }
-           }
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+           const firstName =  fName.value;
+           const lastName =  lName.value;
+           const date =  doB.value;
+           const emai = email.value;
+           const pw = password.value;
+
+        const special = /[!?]/;
+        if(!special.test(pw)){
+          passwordMessage.textContent = "Password must have ! or ?";
+          display.innerHTML = "";
+          return;
         }
-        function asterisks(password){
-            return '*'.repeat(password.length);
-        }
-        
-        
+
+        passwordMessage.textContent = "";
+
+        const userData = {
+            firstname: firstName,
+            lastname: lastName,
+            dateofbirth: date,
+            email: emai,
+            password: pw,
+        };
+        display.innerHTML = `
+        <p>FirstName: ${userData.firstname}</p>
+        <p>LastName: ${userData.lastname}</p>
+        <p>Date Of Birth: ${userData.dateofbirth}</p>
+        <p>Email: ${userData.email}</p>
+        <p>Password ${userData.password}</p>
+        `;
+        });
+        });   
       </script>
 </body>
 </html>
