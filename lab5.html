@@ -76,8 +76,8 @@
            const emai = email.value;
            const pw = password.value;
 
-        const special = /[!?]/;
-        if(!special.test(pw)){
+        
+        if(password !== "!" || password !== "?"){
           passwordMessage.textContent = "Password must have ! or ?";
           display.innerHTML = "";
           return;
