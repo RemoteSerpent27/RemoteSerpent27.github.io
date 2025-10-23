@@ -53,12 +53,12 @@
           <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
           <label class="form-check-label" for="exampleCheck1"  >Check me out</label>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="return form();">Submit</button>
+        <button type="submit" class="btn btn-primary" onclick="return validateForm();">Submit</button>
       </form>
-      <div id="passwordMessage" class="passwordMessage" style="color: red;"></div>
+     
       <div id="output" class="output"></div>
       <script>
-       
+       function validateForm(){
           const fName = document.getElementById("exampleInputFirstName");
         const lName = document.getElementById("exampleLastName");
         const doB = document.getElementById("exampleDateOfBirth");
@@ -66,32 +66,20 @@
         const password = document.getElementById("exampleInputPassword1");
         const form = document.getElementById("userForm");
         const display = document.getElementById("output");
-        const passwordMessage = document.getElementById("passwordMessage");
+        const passwordError = document.getElementById("passwordError");
 
-       function form(){
-          
-           const firstName =  fName.value;
-           const lastName =  lName.value;
-           const date =  doB.value;
-           const emai = email.value;
-           const pw = password.value;
-
-        
-        if(pw.includes("!") || pw.includes("?")){
-          passwordMessage.textContent = "";
-          return true;
-        } else {
-          passwordMessage.textContent = "Password must contain a ! or ?";
-          return false;
-        }
-
+       const pw = password.value;
+      if(pw.includes("!") || pw.includes("?")){
+        passwordError.style.display = "none";
+      
         const userData = {
-            firstname: firstName,
-            lastname: lastName,
-            dateofbirth: date,
-            email: emai,
+            firstname: fName.value,
+            lastname: lName.value,
+            dateofbirth: doB.value,
+            email: email.value,
             password: pw,
         };
+
         display.innerHTML = `
         <p>FirstName: ${userData.firstname}</p>
         <p>LastName: ${userData.lastname}</p>
@@ -99,8 +87,12 @@
         <p>Email: ${userData.email}</p>
         <p>Password ${userData.password}</p>
         `;
-       
-       }
+        return true;
+      } else{
+        passwordError.style.display = "block";
+        return false;
+      }
+      }
       </script>
 </body>
 </html>
