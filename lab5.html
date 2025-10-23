@@ -53,12 +53,12 @@
           <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
           <label class="form-check-label" for="exampleCheck1"  >Check me out</label>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="form()">Submit</button>
+        <button type="submit" class="btn btn-primary" onclick="return form();">Submit</button>
       </form>
       <div id="passwordMessage" class="passwordMessage" style="color: red;"></div>
       <div id="output" class="output"></div>
       <script>
-       function form(){
+       
           const fName = document.getElementById("exampleInputFirstName");
         const lName = document.getElementById("exampleLastName");
         const doB = document.getElementById("exampleDateOfBirth");
@@ -68,8 +68,8 @@
         const display = document.getElementById("output");
         const passwordMessage = document.getElementById("passwordMessage");
 
-       
-          event.preventDefault();
+       function form(){
+          
            const firstName =  fName.value;
            const lastName =  lName.value;
            const date =  doB.value;
@@ -77,13 +77,13 @@
            const pw = password.value;
 
         
-        if(pw !== "!" || pw !== "?"){
-          passwordMessage.textContent = "Password must have ! or ?";
-          display.innerHTML = "";
-          return;
+        if(pw.includes("!") || pw.includes("?")){
+          passwordMessage.textContent = "";
+          return true;
+        } else {
+          passwordMessage.textContent = "Password must contain a ! or ?";
+          return false;
         }
-
-        passwordMessage.textContent = "";
 
         const userData = {
             firstname: firstName,
@@ -100,7 +100,7 @@
         <p>Password ${userData.password}</p>
         `;
        
-      }
+       }
       </script>
 </body>
 </html>
