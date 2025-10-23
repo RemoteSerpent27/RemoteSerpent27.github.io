@@ -58,7 +58,7 @@
       <div id="passwordMessage" class="passwordMessage" style="color: red;"></div>
       <div id="output" class="output"></div>
       <script>
-        document.addEventListener("DOMContentLoaded", () => {
+       
           const fName = document.getElementById("exampleInputFirstName");
         const lName = document.getElementById("exampleLastName");
         const doB = document.getElementById("exampleDateOfBirth");
@@ -68,7 +68,7 @@
         const display = document.getElementById("output");
         const passwordMessage = document.getElementById("passwordMessage");
 
-        form.addEventListener("submit", (event) => {
+       
           event.preventDefault();
            const firstName =  fName.value;
            const lastName =  lName.value;
@@ -99,8 +99,8 @@
         <p>Email: ${userData.email}</p>
         <p>Password ${userData.password}</p>
         `;
-        });
-        });   
+      
+        
       </script>
 </body>
 </html>
