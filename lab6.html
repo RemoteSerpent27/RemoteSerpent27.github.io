@@ -7,6 +7,9 @@
 </head>
 <body>
     <button id="apiButton" onclick="return buttonClick()">Click</button>
+    <div class="facts">
+        
+    </div>
 </body>
 <script>
     async function buttonClick(){
@@ -16,12 +19,15 @@
         const response = await fetch(apiUrl, {
             method: "GET"
         });
-        const facts = await response.json();
-        facts.sort((a,b) => a.factid - b.factid);
-        console.log("Facts sorted from 1 to 5", facts);
+      
+       const facts = await response.json();
+
+       facts.sort((a,b) => a.factid - b.factid);
+       console.log("facts sorted", facts);
     }catch(error){
             console.log("Couldn't get data", error);
         }
     }
+    
 </script>
 </html>
