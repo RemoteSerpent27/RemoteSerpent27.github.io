@@ -8,7 +8,7 @@
 <body>
     <button id="apiButton" onclick="return buttonClick()">Click</button>
     <div class="facts">
-        
+
     </div>
 </body>
 <script>
@@ -19,15 +19,19 @@
         const response = await fetch(apiUrl, {
             method: "GET"
         });
-      
-       const facts = await response.json();
+      const resData = await response.json();
+       const factsSorted = resData.facts;
 
-       facts.sort((a,b) => a.factid - b.factid);
+       factsSorted.sort((a,b) => a.factId - b.factId);
        console.log("facts sorted", facts);
+
+       display(facts);
     }catch(error){
             console.log("Couldn't get data", error);
         }
     }
+
+    function display(facts)
     
 </script>
 </html>
