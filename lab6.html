@@ -32,7 +32,14 @@
     }
 
     function display(facts){
-        const container = document.
+        const container = document.getElementById("facts");
+
+        container.innerHTML = "";
+
+        facts.forEach(fact => {
+            const factEl = document.createElement("p");
+            factEl.textContent = `Fact #${fact.factId}: ${fact.text}`
+        })
     }
     
 </script>
