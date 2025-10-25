@@ -8,6 +8,7 @@
 <body>
     <button id="apiButton" onclick="return buttonClick()">Click</button>
     <div id="facts">
+        <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg" alt="">
 
     </div>
 </body>
@@ -38,8 +39,9 @@
 
         facts.forEach(fact => {
             const factEl = document.createElement("p");
-            factEl.textContent = `Fact #${fact.factId}: ${fact.text}`
-        })
+            factEl.textContent = `Fact #${fact.factId}: ${fact.text}`;
+            container.appendChild(factEl);
+        });
     }
     
 </script>
