@@ -7,7 +7,7 @@
 </head>
 <body>
     <button id="apiButton" onclick="return buttonClick()">Click</button>
-    <div class="facts">
+    <div id="facts">
 
     </div>
 </body>
@@ -25,13 +25,15 @@
        factsSorted.sort((a,b) => a.factId - b.factId);
        console.log("facts sorted", facts);
 
-       display(facts);
+       display(factsSorted);
     }catch(error){
             console.log("Couldn't get data", error);
         }
     }
 
-    function display(facts)
+    function display(facts){
+        const container = document.
+    }
     
 </script>
 </html>
