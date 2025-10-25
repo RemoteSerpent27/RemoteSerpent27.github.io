@@ -8,7 +8,6 @@
 <body>
     <button id="apiButton" onclick="return buttonClick()">Click</button>
     <div id="facts">
-        <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg" alt="">
 
     </div>
 </body>
@@ -22,20 +21,27 @@
         });
       const resData = await response.json();
        const factsSorted = resData.facts;
+       const imageUrl = resData.catPhoto;
 
        factsSorted.sort((a,b) => a.factId - b.factId);
        console.log("facts sorted", facts);
+       console.log("Image URL", imageUrl);
 
-       display(factsSorted);
+       display(factsSorted, imageUrl);
     }catch(error){
             console.log("Couldn't get data", error);
         }
     }
 
-    function display(facts){
+    function display(facts, imageUrl){
         const container = document.getElementById("facts");
 
         container.innerHTML = "";
+
+        const imgEl = document.createElement("img");
+        imgEl.src = imageUrl;
+        imgEl.alt = "Picture of a cat";
+        container.appendChild(imgEl);
 
         facts.forEach(fact => {
             const factEl = document.createElement("p");
