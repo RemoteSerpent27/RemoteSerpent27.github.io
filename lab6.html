@@ -12,14 +12,13 @@
     async function buttonClick(){
         const button = document.getElementById("apiButton");
         const apiUrl = "https://brianobruno.github.io/cats.json";
-        try {fetch(apiUrl, {
-            method: 'GET'
-        })
-        .then(response => response.json())
-        .then(data => {
-           const facts  = facts.sort((a,b) => a.factid - b.factid);
-           
-        })
+        try {
+        const response = await fetch(apiUrl, {
+            method: "GET"
+        });
+        const facts = await response.json();
+        facts.sort((a,b) => a.factid - b.factid);
+        console.log("Facts sorted from 1 to 5", facts);
     }catch(error){
             console.log("Couldn't get data", error);
         }
