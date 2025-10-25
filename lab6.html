@@ -15,7 +15,13 @@
         fetch(apiUrl, {
             method: 'GET'
         })
-        
+        .then(data => {
+            const sortNumbers = apiUrl.sort((a,b) => a - b);
+            console.log(sortNumbers);
+        })
+        .catch(error => {
+            console.log("Coudln't get data", error);
+        })
     }
 </script>
 </html>
