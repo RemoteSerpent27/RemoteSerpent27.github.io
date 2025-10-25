@@ -9,20 +9,20 @@
     <button id="apiButton" onclick="return buttonClick()">Click</button>
 </body>
 <script>
-    function buttonClick(){
+    async function buttonClick(){
         const button = document.getElementById("apiButton");
         const apiUrl = "https://brianobruno.github.io/cats.json";
-        fetch(apiUrl, {
+        try {fetch(apiUrl, {
             method: 'GET'
         })
         .then(response => response.json())
         .then(data => {
-           
+           const facts  = facts.sort((a,b) => a.factid - b.factid);
            
         })
-        .catch(error => {
+    }catch(error){
             console.log("Couldn't get data", error);
-        })
+        }
     }
 </script>
 </html>
