@@ -64,6 +64,6 @@
     //gets data from stars wars api
     async function asyncFetch(input) {
         // Constructs the API URL: uses full input URL if provided, otherwise appends input to the base SWAPI endpoint.
-        const url = `https://swapi.dev/api/${input}`;
+        const url = input.startsWith("https") ? input : `https://swapi.dev/api/${input}`;
     }
 </script>
