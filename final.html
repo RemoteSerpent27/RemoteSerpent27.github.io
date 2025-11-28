@@ -199,5 +199,17 @@
         const fullBox = card.querySelector(".full");
         const showMorebtn = card.querySelector(".show-more");
         const goBackbtn = card.querySelector(".go-back");
+        if(e.target.classList.contains("show-more")){
+            shortBox.classList.add("d-none");
+            fullBox.classList.remove("d-none");
+            showMorebtn.classList.add("d-none");
+            goBackbtn.classList.remove("d-none");
+        }
+        if(e.target.classList.contains("go-back")){
+            shortBox.classList.remove("d-none");
+            fullBox.classList.add("d-none");
+            showMorebtn.classList.remove("d-none");
+            goBackbtn.classList.add("d-none");
+        }
     }
 </script>
