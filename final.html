@@ -154,5 +154,12 @@
             });
         }
         results.innerHTML = output;
+        updatePagination(data, type);
+        //shows gender and total count for people
+        if(type === "people"){
+            const countsHTML = `<div class="mt-2 text-center text-light">
+                Total on page: ${counter} - Female: ${femaleCount} - Male: ${maleCount} - Other: ${unknownCount}
+                </div>`;
+        }
     }
 </script>
