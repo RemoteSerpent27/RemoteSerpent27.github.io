@@ -164,7 +164,7 @@
     }
     //updates page data
     function updatePagination(data, type){
-        footer.innerHTL = `
+        footer.innerHTML = `
         ${data.previous ? `<a href="#" data-url="${data.previous}" class="btn btn-outline-light p-2 mr-3><< Previous</a>` : ""}
         ${data.next ? `<a href="#" data-url="${data.next}" class="btn btn-outline-light p-2 mr-3>Next >></a>` : ""}
         `;
