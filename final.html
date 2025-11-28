@@ -105,5 +105,15 @@
         //reset counters
         counter = 0; femaleCount = 0; maleCount = 0; unknownCount = 0;
         let output = "";
+        if(type === "films"){
+            data.results.forEach(f => {
+                output += createCard(
+                    f.title,
+                    `
+                    
+                    `
+                )
+            })
+        }
     }
 </script>
