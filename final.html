@@ -77,4 +77,10 @@
             console.error("Fetch failed for", url, error);
         }
     }
+    //determines category for api url
+    function getCFromApi(url){
+        const segements = new URL(url).pathname.split("/").filter(Boolean);
+        const lastSegment = segements.pop();
+        return isNaN(lastSegment) ? lastSegment : segments.pop();
+    }
 </script>
