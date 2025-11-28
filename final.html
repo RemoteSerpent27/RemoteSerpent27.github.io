@@ -186,5 +186,8 @@
     function handleSearchSubmit(e){
         e.preventDefault();
         const query = searchInput.value.trim();
+        if(!query)return;
+        const active = document.querySelector(".btn-group-toggle .active input");
+        const type = active ? active.id : "people";
     }
 </script>
