@@ -167,6 +167,18 @@
     function updatePagination(data, type){
         footer.innerHTL = `
         ${data.previous ? `<a href="#" data-url="${data.previous}" class="btn btn-outline-light p-2 mr-3><< Previous</a>` : ""}
-        `
+        ${data.next ? `<a href="#" data-url="${data.next}" class="btn btn-outline-light p-2 mr-3>Next >></a>` : ""}
+        `;
+    }
+    //handles category/data when toggled
+    function handleCategoryChange(category){
+        searchInput.value = "";
+        if(genderSelect) genderSelect.value = "default";
+        asyncFetch(category);
+    }
+    //handles data when you click next or previous btn
+    function handleFooterClick(e){
+        e.preventDefault();
+        
     }
 </script>
