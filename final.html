@@ -26,8 +26,7 @@
             <button type="button" id="resetBtn" class="btn btn-outline-light" onclick="handleReset()">Reset</button>
         </div>
     </div>
-    
-    <header class="text-center">
+     <header class="text-center">
         <img src="https://fontmeme.com/permalink/251113/7805ac08bb4fb29e718fbf8016cd6e7b.png" alt="star-wars-font">
     </header>
 
@@ -128,7 +127,7 @@
               else if (g === "male") maleCount++;
               else unknownCount++;
           });
-          // apply gender filter to results shown
+          // apply gender filter to results shown if gender is selected
           const selected = genderSelect ? genderSelect.value : "default";
           const resultsToShow = (selected && selected !== "default")
             ? data.results.filter(p => {
