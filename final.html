@@ -160,6 +160,7 @@
             const countsHTML = `<div class="mt-2 text-center text-light">
                 Total on page: ${counter} - Female: ${femaleCount} - Male: ${maleCount} - Other: ${unknownCount}
                 </div>`;
+                footer.insertAdjacentHTML("beforeend", countsHTML);
         }
     }
 </script>
