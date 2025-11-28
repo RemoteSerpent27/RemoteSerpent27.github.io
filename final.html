@@ -99,69 +99,71 @@
         </div>`;
     }
     //displays api results
-    function displayResults(data, type){
-        if(!data || !type) return;
-        //reset counters
-        counter = 0; femaleCount = 0; maleCount = 0; unknownCount = 0;
-        let output = "";
-        if(type === "films"){
-            data.results.forEach(f => {
-                output += createCard(
-                    f.title,
-                    `
-                    <span style="text-decoration:underline">Producer:</span>${f.producer}<br>
-                    <span style="text-decoration:underline">Director:</span>${f.director}<br>
-                    <span style="text-decoration:underline">Release Date:</span>${f.release_date}<br>
-                    `, 
-                    `
-                    <span style="text-decoration:underline">Opening Crawl:</span>${f.opening_crawl}<br>
-                    `
-                );
-            });
-        }
-        if(type === "people"){
-            //counts over full page of people
-            data.results.forEach(p => {
-                counter++;
-                const g = (p.gender || "").toLowerCase();//to fit the api's gender call
-                if(g === "female") femaleCount++;
-                else if(g === "male") maleCount++;
-                else unknownCount++;
-            });
-            //apply gender filter if selected, show results
-            const selected = genderSelect ? genderSelect.value : "default";
-            const resultsToShow = (selected && selected !== "default") 
+    function displayResults(data, type) {
+      if (!data || !type) return;
+      // reset counters
+      counter = 0; femaleCount = 0; maleCount = 0; unknownCount = 0;
+      let output = "";
+      if (type === "films") {
+          data.results.forEach(f => {
+              output += createCard(
+                  f.title,
+                  `
+                  <span style="text-decoration:underline">Producer:</span> ${f.producer}<br>
+                  <span style="text-decoration:underline">Director:</span> ${f.director}<br>
+                  <span style="text-decoration:underline">Release Date:</span> ${f.release_date}<br>
+                  `,
+                  `
+                  <span style="text-decoration:underline">Opening:</span> ${f.opening_crawl}<br>
+                  `
+              );
+          });
+      }
+      if (type === "people") {
+          // compute counts over full page of people (unfiltered)
+          data.results.forEach(p => {
+              counter++;
+              const g = (p.gender || "").toLowerCase();
+              if (g === "female") femaleCount++;
+              else if (g === "male") maleCount++;
+              else unknownCount++;
+          });
+          // apply gender filter to results shown
+          const selected = genderSelect ? genderSelect.value : "default";
+          const resultsToShow = (selected && selected !== "default")
             ? data.results.filter(p => {
-                const gender = (p.gender || "").toLowerCase();//ensure gender is a lowercase string to fit the api call
-                return gender === selected.toLowerCase() || (selected === "unknown" && (gender === "n/a" || gender === "none" || gender ==="hermaphrodite"));
-            }) : data.results;
-            resultsToShow.forEach(p => {
-                output += createCard(
-                    p.name,
-                    `
-                    <span style="text-decoration:underline">Birth Year:</span<${p.birth_year}<br>
-                    <span style="text-decoration:underline">Gender:</span<${p.gender}<br>
-                    <span style="text-decoration:underline">Skin Color:</span<${p.skin_color}<br>
-                    `,
-                    `
-                    <span style="text-decoration:underline">Mass:</span<${p.mass}kg<br>
-                    <span style="text-decoration:underline">Hair Color:</span<${p.hair_color}<br>
-                    <span style="text-decoration:underline">Height:</span<${p.height}cm<br>
-                    <span style="text-decoration:underline">Eye Color:</span<${p.eye_color}<br>
-                    `
-                );
-            });
-        }
-        results.innerHTML = output;
-        updatePagination(data, type);
-        //shows gender and total count for people
-        if(type === "people"){
-            const countsHtml = `<div class="mt-2 text-center text-light">
-                Total on page: ${counter} - Female: ${femaleCount} - Male: ${maleCount} - Other: ${unknownCount}
-                </div>`;
-                footer.insertAdjacentHTML("beforeend", countsHtml);
-        }
-    }
+           const gender = (p.gender || "").toLowerCase(); // Ensure gender is a lowercase string
+           return gender === selected.toLowerCase() || (selected === "unknown" && (gender === "n/a" || gender === "none" || gender === "hermaphrodite" || gender === "unknown")); // Match the selected gender
+   })
+   : data.results;
+          resultsToShow.forEach(p => {
+              output += createCard(
+                  p.name,
+                  `
+                  <span style="text-decoration:underline">Birthyear:</span> ${p.birth_year}<br>
+                   <span style="text-decoration:underline">Gender:</span> ${p.gender}<br>
+                  <span style="text-decoration:underline">Skin Color:</span> ${p.skin_color}<br>
+                  `,
+                  `
+                  <span style="text-decoration:underline">Mass:</span> ${p.mass} kg<br>
+                  <span style="text-decoration:underline">Hair Color:</span> ${p.hair_color}<br>
+                  <span style="text-decoration:underline">Height:</span> ${p.height}cm<br>
+                   <span style="text-decoration:underline">Eye Color:</span> ${p.eye_color}<br>
+                  `
+              );
+          });
+      }
+      results.innerHTML = output;
+      updatePagination(data, type);
+      // show counts for people type
+      if (type === "people") {
+          const countsHtml = `<div class="mt-2 text-center text-light">
+              Total on page: ${counter} — Female: ${femaleCount} — Male: ${maleCount} — Other: ${unknownCount}
+          </div>`;
+          footer.insertAdjacentHTML("beforeend", countsHtml);
+      }
+  }
+
     //updates page data
     function updatePagination(data, type) {
       footer.innerHTML = `
