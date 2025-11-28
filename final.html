@@ -81,6 +81,6 @@
     function getCFromApi(url){
         const segements = new URL(url).pathname.split("/").filter(Boolean); //splits url into segemnts, removes empty strings
         const lastSegment = segements.pop() || "";//holds category or the number in array
-        return isNaN(lastSegment) ? lastSegment : segements.pop();//returns the category
+        return isNaN(lastSegment) ? lastSegment : segements.pop();//returns the category or fetches it again
     }
 </script>
