@@ -65,5 +65,13 @@
     async function asyncFetch(input) {
         // Constructs the API URL: uses full input URL if provided, otherwise appends input to the base SWAPI endpoint.
         const url = input.startsWith("https") ? input : `https://swapi.dev/api/${input}`;
+        try {
+            const res = await fetch(url);
+            if(!res.ok){
+                throw new Error(`HTTP ERROR! ${res.status}, ${res.statusText}`);
+            }
+        } catch (error) {
+            
+        }
     }
 </script>
