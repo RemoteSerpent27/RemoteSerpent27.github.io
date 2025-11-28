@@ -68,7 +68,11 @@
         try {
             const res = await fetch(url);
             if(!res.ok) throw new Error(`HTTP ERROR! ${res.status}, ${res.statusText}`);
-            
+            const data = await res.json();
+            const type = getCFromAPI(url);
+            lastData = data;
+            lastType = type;
+            displayResults(data, type);
         } catch (error) {
             
         }
