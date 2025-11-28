@@ -212,4 +212,18 @@
             goBackbtn.classList.add("d-none");
         }
     }
+    //reset btn when clicked
+    function handleReset(){
+        searchInput.value = "";
+        if (genderSelect) genderSelect.value = "default";
+        results.innerHTML = "";
+        footer.innerHTML = "";
+        counter = femaleCount = maleCount = unknownCount = 0;
+        lastData = null;
+        lastType = null;
+    }
+    //called by select onchange
+    function handleGenderChange(){
+        if(lastData && lastType) displayResults
+    }
 </script>
