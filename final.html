@@ -79,8 +79,8 @@
     }
     //determines category for api url
     function getCFromApi(url){
-        const segements = new URL(url).pathname.split("/").filter(Boolean);
-        const lastSegment = segements.pop() || "";
-        return isNaN(lastSegment) ? lastSegment : segments.pop();
+        const segements = new URL(url).pathname.split("/").filter(Boolean); //splits url into segemnts, removes empty strings
+        const lastSegment = segements.pop() || "";//holds category or the number in array
+        return isNaN(lastSegment) ? lastSegment : segements.pop();//returns the category
     }
 </script>
