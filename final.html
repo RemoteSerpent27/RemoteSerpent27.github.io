@@ -79,9 +79,9 @@
     }
     //determines category for api url
     function getCFromAPI(url){
-        const segements = new URL(url).pathname.split("/").filter(Boolean); //splits url into segemnts, removes empty strings
-        const lastSegment = segements.pop() || "";//holds category or the number in array
-        return isNaN(lastSegment) ? lastSegment : segements.pop();//returns the category or fetches it again
+        const segments = new URL(url).pathname.split("/").filter(Boolean); //splits url into segemnts, removes empty strings
+        const lastSegment = segments.pop() || "";//holds category or the number in array
+        return isNaN(lastSegment) ? lastSegment : segments.pop();//returns the category or fetches it again
     }
     //makes data cards
     function createCard(title, firstInfo, secondInfo){
