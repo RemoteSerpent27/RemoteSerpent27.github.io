@@ -179,6 +179,12 @@
     //handles data when you click next or previous btn
     function handleFooterClick(e){
         e.preventDefault();
-        
+        const url = e.target.dataset.url;
+        if(url) asyncFetch(url);
+    }
+    //handles search submit
+    function handleSearchSubmit(e){
+        e.preventDefault();
+        const query = searchInput.value.trim();
     }
 </script>
