@@ -131,7 +131,11 @@
             });
             //apply gender filter if selected, show results
             const selected = genderSelect ? genderSelect.value : "default";
-            const resultsToShow = (selected && selected !== "default")
+            const resultsToShow = (selected && selected !== "default") 
+            ? data.results.filter(p => {
+                const gender = (p.gender || "").toLowerCase();//ensure gender is a lowercase string to fit the api call
+                return gender === selected.toLowerCase() || (selected === "unknown" && (gender === "n/a" || gender === "none" || gender ==="hermaphrodite"));
+            }) : data.results;
         }
     }
 </script>
