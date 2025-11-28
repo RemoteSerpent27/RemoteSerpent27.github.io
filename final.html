@@ -117,7 +117,14 @@
                     `
                     <span style="text-decoration:underline">Opening Crawl:</span>${f.opening_crawl}<br>
                     `
-                )
+                );
+            });
+        }
+        if(type === "people"){
+            //counts over full page of people
+            data.results.forEach(p => {
+                counter++;
+                const g = (p.gender || "").toLowerCase();
             })
         }
     }
