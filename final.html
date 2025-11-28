@@ -67,9 +67,8 @@
         const url = input.startsWith("https") ? input : `https://swapi.dev/api/${input}`;
         try {
             const res = await fetch(url);
-            if(!res.ok){
-                throw new Error(`HTTP ERROR! ${res.status}, ${res.statusText}`);
-            }
+            if(!res.ok) throw new Error(`HTTP ERROR! ${res.status}, ${res.statusText}`);
+            
         } catch (error) {
             
         }
