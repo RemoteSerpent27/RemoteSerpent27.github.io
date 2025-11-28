@@ -124,8 +124,14 @@
             //counts over full page of people
             data.results.forEach(p => {
                 counter++;
-                const g = (p.gender || "").toLowerCase();
-            })
+                const g = (p.gender || "").toLowerCase();//to fit the api's gender call
+                if(g === "female") femaleCount++;
+                else if(g === "male") maleCount++;
+                else unknownCount++;
+            });
+            //apply gender filter if selected, show results
+            const selected = genderSelect ? genderSelect.value : "default";
+            const resultsToShow = (selected && selected !== "default")
         }
     }
 </script>
