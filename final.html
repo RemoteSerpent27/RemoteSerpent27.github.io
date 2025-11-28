@@ -74,7 +74,7 @@
             lastType = type;
             displayResults(data, type);
         } catch (error) {
-            
+            console.error("Fetch failed for", url, error);
         }
     }
 </script>
