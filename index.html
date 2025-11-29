@@ -1,58 +1,229 @@
-<html>
-    <head>
-        <title>About Me</title>
-        <style>
-             nav {
-            background-color: #333;
-            padding: 10px;
-        }
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-            padding: 0;
-            margin: 0;
-        }
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        nav ul li {
-            display: inline;
-        }
+    <title>Star, Wars!</title>
+  </head>
+  <body class="container" style="background-image: url(https://cdn.wallpapersafari.com/57/77/2hT4G0.jpg);">
+    <div class="search-form">
+        <form class="d-flex justify-content-end" onsubmit="handleSearchSubmit(event)">
+            <input type="search" class="form-control btn btn-outline-light search-input" placeholder="Search for a character or film">
+            <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>
+        <div class="selectGender">
+            <select class="genderFilter" onchange="handleGenderChange()" data-default-value="default">
+                <option value="default" disabled="disabled" selected="true">Filter by Gender</option>
+                <option value="female" id="femaleFilter">Female</option>
+                <option value="male" id="MaleFilter">Male</option>
+                <option value="unknown" id="unknownFilter">Unknown</option>
+            </select>
+            <button type="button" id="resetBtn" class="btn btn-outline-light" onclick="handleReset()">Reset</button>
+        </div>
+    </div>
+     <header class="text-center">
+        <img src="https://fontmeme.com/permalink/251113/7805ac08bb4fb29e718fbf8016cd6e7b.png" alt="star-wars-font">
+    </header>
 
-        nav ul li a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            padding: 8px 12px;
-        }
-        nav ul li a.active {
-            background-color: #555; /* Highlight the current page */
-            border-radius: 5px;
-        }
+    <div id="buttons" class="text-center">
+        <div class="btn-group btn-group-toggle pt-5" data-toggle="buttons">
+            <label class="btn btn-lg btn-outline-light" onclick="handleCategoryChange('films')">
+                <input type="radio" name="options" id="films" autocomplete="off">Films
+            </label>
+            <label class="btn btn-lg btn-outline-light" onclick="handleCategoryChange('people')">
+                <input type="radio" name="options" id="people" autocomplete="off">People
+            </label>
+        </div>
+    </div>
 
-        nav ul li a:hover {
-            background-color: #444;
-            border-radius: 5px;
-        }
-        </style>
-    </head>
-    <body>
-        <nav>
-            <ul>
-                <li><a href = "index.html">1st Lab</a></li>
-                <li><a href="lab3.html">Home</a></li>
-            </ul>
-        </nav>
-        <h1>About Me</h1>
-        <p>My name is Angel. I have taken c++ before but do not remember much of it as after the semester I didn't use it. It was challening but fun because I got to do projects with my friend.</p>
-        <hr>
-        <h2>Hobbies</h2>
-        <ul>
-            <li>Handball</li>
-            <li>Video Games</li>
-            <li>Puzzle Games</li>
-            </ul>
-        <a href="https://www.w3schools.com/">A website that has helped me, a lot.</a>
-        <img src="https://teachyourkidscode.com/wp-content/uploads/2022/02/best-coding-language-for-games.jpg" alt="Picture of random code">
-    </body>
+    <div id="results" class="card-columns" onclick="handleCardClick(event)"></div>
+    <footer id="footer" onclick="handleFooterClick(event)"></footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
 </html>
+<script>
+    //manipulating data from html
+    const results = document.querySelector("#results");
+    const footer = document.querySelector("#footer");
+    const searchInput = document.querySelector(".search-input");
+    const genderSelect = document.querySelector(".genderFilter");
+    //elements for gender filter and data from api
+    let counter = 0, femaleCount = 0, maleCount = 0, unknownCount = 0;
+    let lastData = null;//stores most receent data
+    let lastType = null;//stores most recent type (films/people)
+    //gets data from stars wars api
+    async function asyncFetch(input) {
+        // Constructs the API URL: uses full input URL if provided, otherwise appends input to the base SWAPI endpoint.
+        const url = input.startsWith("http") ? input : `https://swapi.dev/api/${input}`;
+        try {
+            const res = await fetch(url);
+            if(!res.ok) throw new Error(`HTTP ERROR! ${res.status}, ${res.statusText}`);
+            const data = await res.json();
+            const type = getCFromAPI(url);
+            lastData = data;
+            lastType = type;
+            displayResults(data, type);
+        } catch (error) {
+            console.error("Fetch failed for", url, error);
+        }
+    }
+    //determines category for api url
+    function getCFromAPI(url){
+        const segments = new URL(url).pathname.split("/").filter(Boolean); //splits url into segemnts, removes empty strings
+        const lastSegment = segments.pop() || "";//holds category or the number in array
+        return isNaN(lastSegment) ? lastSegment : segments.pop();//returns the category or fetches it again
+    }
+    //makes data cards
+    function createCard(title, firstInfo, secondInfo){
+        return `
+        <div class = "card p-3 m-3" style="opacity:.8">
+            <h4 class="card-title text-center">${title}</h4>
+            <div class="card-content short">
+                ${firstInfo}
+                </div>
+            <button class="btn btn-outline-light show-more">Show More</button>
+            <div class="card-content full d-none">
+                ${secondInfo}
+                <button class="btn btn-outline-light go-back">Go Back</button>
+            </div>
+        </div>`;
+    }
+    //displays api results
+    function displayResults(data, type) {
+      if (!data || !type) return;
+      // reset counters
+      counter = 0; femaleCount = 0; maleCount = 0; unknownCount = 0;
+      let output = "";
+      if (type === "films") {
+          data.results.forEach(f => {
+              output += createCard(
+                  f.title,
+                  `
+                  <span style="text-decoration:underline">Producer:</span> ${f.producer}<br>
+                  <span style="text-decoration:underline">Director:</span> ${f.director}<br>
+                  <span style="text-decoration:underline">Release Date:</span> ${f.release_date}<br>
+                  `,
+                  `
+                  <span style="text-decoration:underline">Opening:</span> ${f.opening_crawl}<br>
+                  `
+              );
+          });
+      }
+      if (type === "people") {
+          // compute counts over full page of people (unfiltered)
+          data.results.forEach(p => {
+              counter++;
+              const g = (p.gender || "").toLowerCase();
+              if (g === "female") femaleCount++;
+              else if (g === "male") maleCount++;
+              else unknownCount++;
+          });
+          // apply gender filter to results shown if gender is selected
+          const selected = genderSelect ? genderSelect.value : "default";
+          const resultsToShow = (selected && selected !== "default")
+            ? data.results.filter(p => {
+           const gender = (p.gender || "").toLowerCase(); // Ensure gender is a lowercase string
+           return gender === selected.toLowerCase() || (selected === "unknown" && (gender === "n/a" || gender === "none" || gender === "hermaphrodite" || gender === "unknown")); // Match the selected gender
+   })
+   : data.results;
+          resultsToShow.forEach(p => {
+              output += createCard(
+                  p.name,
+                  `
+                  <span style="text-decoration:underline">Birthyear:</span> ${p.birth_year}<br>
+                   <span style="text-decoration:underline">Gender:</span> ${p.gender}<br>
+                  <span style="text-decoration:underline">Skin Color:</span> ${p.skin_color}<br>
+                  `,
+                  `
+                  <span style="text-decoration:underline">Mass:</span> ${p.mass} kg<br>
+                  <span style="text-decoration:underline">Hair Color:</span> ${p.hair_color}<br>
+                  <span style="text-decoration:underline">Height:</span> ${p.height}cm<br>
+                   <span style="text-decoration:underline">Eye Color:</span> ${p.eye_color}<br>
+                  `
+              );
+          });
+      }
+      results.innerHTML = output;
+      updatePagination(data, type);
+      // show counts for people type
+      if (type === "people") {
+          const countsHtml = `<div class="mt-2 text-center text-light">
+              Total on page: ${counter} — Female: ${femaleCount} — Male: ${maleCount} — Other: ${unknownCount}
+          </div>`;
+          footer.insertAdjacentHTML("beforeend", countsHtml);
+      }
+  }
+
+    //updates page data
+    function updatePagination(data, type) {
+      footer.innerHTML = `
+          ${data.previous ? `<a href="#" data-url="${data.previous}" class="btn btn-outline-light p-2 mr-3"><< Previous</a>` : ""}
+          ${data.next     ? `<a href="#" data-url="${data.next}" class="btn btn-outline-light p-2 ml-3">Next >></a>` : ""}
+      `;
+  }
+    //handles category/data when toggled
+    function handleCategoryChange(category){
+        searchInput.value = "";
+        if(genderSelect) genderSelect.value = "default";
+        asyncFetch(category);
+    }
+    //handles data when you click next or previous btn
+    function handleFooterClick(e){
+        e.preventDefault();
+        const url = e.target.dataset.url;
+        if(url) asyncFetch(url);
+    }
+    //handles search submit
+    function handleSearchSubmit(e){
+        e.preventDefault();
+        const query = searchInput.value.trim();
+        if(!query)return;
+        const active = document.querySelector(".btn-group-toggle .active input");
+        const type = active ? active.id : "people";
+        asyncFetch(`https://swapi.dev/api/${type}/?search=${query}`);
+    }
+    //handles show more and go back btns on cards
+    function handleCardClick(e){
+        const card = e.target.closest(".card");
+        if(!card) return;
+        const shortBox = card.querySelector(".short");
+        const fullBox = card.querySelector(".full");
+        const showMorebtn = card.querySelector(".show-more");
+        const goBackbtn = card.querySelector(".go-back");
+        if(e.target.classList.contains("show-more")){
+            shortBox.classList.add("d-none");
+            fullBox.classList.remove("d-none");
+            showMorebtn.classList.add("d-none");
+            goBackbtn.classList.remove("d-none");
+        }
+        if(e.target.classList.contains("go-back")){
+            shortBox.classList.remove("d-none");
+            fullBox.classList.add("d-none");
+            showMorebtn.classList.remove("d-none");
+            goBackbtn.classList.add("d-none");
+        }
+    }
+    //reset btn when clicked
+    function handleReset(){
+        searchInput.value = "";
+        if (genderSelect) genderSelect.value = "default";
+        results.innerHTML = "";
+        footer.innerHTML = "";
+        counter = femaleCount = maleCount = unknownCount = 0;
+        lastData = null;
+        lastType = null;
+    }
+    //called by select onchange
+    function handleGenderChange(){
+        if(lastData && lastType) displayResults(lastData, lastType);
+    }
+</script>
